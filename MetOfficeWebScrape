@@ -1,0 +1,24 @@
+string temp = "fine";
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument doc = web.Load("https://www.metoffice.gov.uk/weather/forecast/gcwfh6#?nearestTo=your%20detected%20location&date=2023-02-07");
+            var htmlWeath = doc.DocumentNode.SelectNodes("//span[contains(@class,'tab-temp-high')]");
+            var htmlLow = doc.DocumentNode.SelectNodes("//span[contains(@class,'tab-temp-low')]");
+            List<Int16> high = new List<Int16>();
+            List<Int16> low = new List<Int16>();
+            foreach(var y in htmlWeath)
+            {
+                string word = y.InnerText;
+                string HighTemp = word.Substring(0, 1);
+                int HighTemps = Int16.Parse(HighTemp);
+                Console.WriteLine(HighTemps);
+                high.Add((short)HighTemps);
+            }
+            Console.WriteLine("--*--");
+            foreach(var x in htmlLow)
+            {
+                string word = x.InnerText;
+                string LowTemp = word.Substring(0, 1);
+                int lowTemps = Int16.Parse(LowTemp);
+                Console.WriteLine(lowTemps);
+                low.Add((short)lowTemps);
+            }
